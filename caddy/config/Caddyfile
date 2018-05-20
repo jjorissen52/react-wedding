@@ -1,0 +1,9 @@
+# DON'T CHANGE THIS FILE, CHANGE COMPOSE FILE
+0.0.0.0:80 {
+    root /docker_django
+
+    proxy / http://{$WORKER}:8000 {
+        transparent
+        except /static
+    }
+}

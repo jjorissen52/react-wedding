@@ -1,0 +1,14 @@
+version: '2'
+services:
+  api:
+    build: ./wedding_api
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - '8000:8000'
+  frontend:
+    build: ./wedding_frontend
+    volumes:
+      - './wedding_frontend:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '3000:3000'
