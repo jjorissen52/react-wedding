@@ -7,7 +7,7 @@ class Food extends Component {
     render() {
         return (
             <div>
-                <Page slug={'Food'}/>
+                <Page slug={'Catering'}/>
             </div>
         );
     }

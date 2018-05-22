@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Link from "react-router-dom/es/Link";
+import {API_CONFIG} from "../Config/api-config";
 
 class Nav extends Component{
     constructor(props){
@@ -9,7 +10,7 @@ class Nav extends Component{
         }
     }
     componentDidMount(){
-        fetch('http://127.0.0.1:8000/api/pages/')
+        fetch(API_CONFIG.api_pages_url)
             .then(results => {return results.json()})
             .then(data => {
                 let pages = data.slice();

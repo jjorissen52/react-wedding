@@ -13,7 +13,7 @@ class PageSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Page
-        fields = ('url', 'slug', 'contents')
+        fields = ('url', 'slug', 'contents', 'order')
         lookup_field = 'slug'
         extra_kwargs = {
             'url': {'lookup_field': 'slug'}

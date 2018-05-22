@@ -2,3 +2,38 @@
     font-weight:900;
     text-shadow: 0 0 3px #000;
 }
+
+body {
+    font-weight: bold;
+}
+
+.button {
+    min-width: 300px;
+}
+
+.screen-height {
+    min-height: 105vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.App {
+    text-align: center;
+}
+
+.alert-success {
+    background-color: royalblue;
+    color: #1b1b1b;
+    border-radius: 3px;
+    border-color: rgba(255, 255, 255, 0.25);
+    padding: 10px 10px 10px 10px;
+}
+
+.alert-danger {
+    background-color: orange;
+    color: #1b1b1b;
+    border-radius:3px;
+    border-color: rgba(255, 255, 255, 0.25);
+    padding: 10px 10px 10px 10px;
+}

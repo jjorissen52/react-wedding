@@ -5,4 +5,3 @@ ADD requirements.txt /config/
 RUN pip install --quiet -r /config/requirements.txt
 RUN mkdir /src;
 WORKDIR /src
-ADD . /src/

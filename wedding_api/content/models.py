@@ -4,6 +4,9 @@ from django.db import models
 class Page(models.Model):
     slug = models.CharField(max_length=50, unique=True)
     contents = models.ManyToManyField('content.Content')
+    order = models.IntegerField(default=0, help_text='lower number is higher priority.')
+    class Meta:
+        ordering = ('order', )
 
     def __str__(self):
         return str(self.slug)

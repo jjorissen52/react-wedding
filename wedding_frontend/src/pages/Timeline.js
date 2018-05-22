@@ -1,20 +1,16 @@
 import React, { Component } from "react";
 import {withRouter} from "react-router";
-import Content from "../components/Page/Content";
+import Page from "../components/Page/Page";
 
-class Venue extends Component {
+
+class Timeline extends Component {
     render() {
         return (
             <div>
-                <Content header={FPContent.header} description={FPContent.description}/>
+                <Page slug={'Timeline'}/>
             </div>
         );
     }
 }
 
-const FPContent = {
-    header: 'test header',
-    description: 'test description'
-};
-
-export default withRouter(Venue);
+export default withRouter(Timeline);
