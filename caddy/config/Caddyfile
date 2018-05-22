@@ -1,5 +1,5 @@
 # DON'T CHANGE THIS FILE, CHANGE COMPOSE FILE
-0.0.0.0:80 {
+{$REACT_WEDDING_DOMAIN} {
     root /docker_django
 
     proxy /api http://{$API}:8000 {

@@ -24,4 +24,5 @@ services:
     environment:
       - WEB=frontend # this refers to the service defined at the top of the file
       - API=api # this refers to the service defined at the top of the file
+      - REACT_WEDDING_DOMAIN=0.0.0.0:80
     command: -conf /config/Caddyfile
