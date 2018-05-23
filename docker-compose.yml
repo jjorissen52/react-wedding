@@ -2,18 +2,24 @@ version: '2'
 services:
   api:
     build: ./wedding_api
-    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "gunicorn wedding_api.wsgi -b 0.0.0.0:8000"
+#    command: bash -c "python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./wedding_api:/src
-    ports:
-      - '8000:8000'
   frontend:
     build: ./wedding_frontend
     volumes:
       - './wedding_frontend:/usr/src/app'
       - '/usr/src/app/node_modules'
-    ports:
-      - '3000:3000'
+  backend_proxy:
+    image: abiosoft/caddy
+    volumes:
+      - ./caddy/backend_config:/config
+      - ./wedding_api:/docker_django
+    environment:
+      - API=api # this refers to the service defined at the top of the file
+      - BACKEND_PROXY=0.0.0.0:8080
+    command: -conf /config/Caddyfile
   caddy:
     image: abiosoft/caddy
     volumes:
@@ -23,6 +29,6 @@ services:
       - "80:80"
     environment:
       - WEB=frontend # this refers to the service defined at the top of the file
-      - API=api # this refers to the service defined at the top of the file
+      - BACKEND_PROXY=backend_proxy
       - REACT_WEDDING_DOMAIN=0.0.0.0:80
     command: -conf /config/Caddyfile

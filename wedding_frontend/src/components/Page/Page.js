@@ -20,7 +20,7 @@ class Page extends Component {
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
     componentDidMount(){
-        fetch(API_CONFIG.api_pages_url + this.state.slug)
+        fetch('http://' + window.location.host + API_CONFIG.api_pages_url + this.state.slug)
             .then(results => {return results.json()})
             .then(data => {
                 let contents = data.contents.slice();

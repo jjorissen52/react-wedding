@@ -1,14 +1,17 @@
-# DON'T CHANGE THIS FILE, CHANGE COMPOSE FILE
 {$REACT_WEDDING_DOMAIN} {
     root /docker_django
 
-    proxy /api http://{$API}:8000 {
+    proxy /api http://{$BACKEND_PROXY}:8080 {
         transparent
-        #except /media
-        #except /static
+    }
+
+    proxy /media http://{$BACKEND_PROXY}:8080 {
+        transparent
     }
 
     proxy / http://{$WEB}:3000 {
         transparent
+        except /api_assets
     }
+
 }

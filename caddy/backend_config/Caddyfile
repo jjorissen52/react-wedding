@@ -1,0 +1,11 @@
+{$BACKEND_PROXY} {
+    root /docker_django
+
+    # allowing the api to serve all of its own content like
+    # a runserver instance
+    proxy / http://{$API}:8000 {
+        transparent
+        except /api_assets /media
+    }
+
+}
