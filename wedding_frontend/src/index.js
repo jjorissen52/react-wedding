@@ -16,11 +16,11 @@ import NotFound from "./pages/NotFound";
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route path="/Catering" component={Food}/>
-            <Route path="/Venue" component={Venue}/>
-            <Route path="/Gifts" component={Gifts}/>
-            <Route path="/Timeline" component={Timeline}/>
+            <Route exact path="/" component={Home} onUpdate={() => window.scrollTo(0, 0)}/>
+            <Route path="/Catering" component={Food} onUpdate={() => window.scrollTo(0, 0)}/>
+            <Route path="/Venue" component={Venue} onUpdate={() => window.scrollTo(0, 0)}/>
+            <Route path="/Gifts" component={Gifts} onUpdate={() => window.scrollTo(0, 0)}/>
+            <Route path="/Timeline" component={Timeline} onUpdate={() => window.scrollTo(0, 0)}/>
             <Route component={NotFound} />
         </Switch>
     </BrowserRouter>,
