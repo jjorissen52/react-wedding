@@ -15,7 +15,9 @@ class Nav extends Component{
             .then(data => {
                 let pages = data.slice();
                 this.setState({pages: pages})
-            })
+            }).catch(function() {
+                console.log("could not retrieve from " + 'http://' + window.location.host + API_CONFIG.api_pages_url);
+            });
     }
     renderLink(page, index){
             return (

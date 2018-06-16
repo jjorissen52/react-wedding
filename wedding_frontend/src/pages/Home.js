@@ -59,7 +59,8 @@ const HomeContent = [
     },
     {
         header: 'FOOD AND BEVERAGES',
-        description: 'We haven\'t picked a caterer yet.',
+        description: 'Our caterer will be Liberty Park Grill. Come check out the food options! If you have any dietary ' +
+                        'restrictions, please let us know.',
         link: "/catering/"
     },
     {

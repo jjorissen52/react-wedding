@@ -9,17 +9,15 @@ services:
     environment:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       - DEBUG=$DEBUG
-    depends_on:
-      - db
 #    ports:
 #      - "8000:8000"
-  db:
-    restart: always
-    image: postgres:9.6
-    volumes:
-      - "$HOME/personal/docker_pg/wedding:/var/lib/postgresql/data"
-    environment:
-      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+#  db:
+#    restart: always
+#    image: postgres:9.6
+#    volumes:
+#      - "$HOME/personal/docker_pg/wedding:/var/lib/postgresql/data"
+#    environment:
+#      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
   frontend:
     build: ./wedding_frontend
     volumes:

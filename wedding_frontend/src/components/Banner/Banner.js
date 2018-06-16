@@ -16,7 +16,7 @@ class Banner extends Component{
                         <h3>August 11, 2018</h3>
                         <h3>Freedom Point</h3>
                         <h3>Ceremony begins 6:30 PM</h3>
-                        <h2></h2>
+                        <a href="https://goo.gl/forms/df8dCmkpoJzy11c03" class="button special small"><h2>RSVP</h2></a>
                     </header>
                 </div>
                 <a href="#content" className="more scrolly">Learn More</a>
