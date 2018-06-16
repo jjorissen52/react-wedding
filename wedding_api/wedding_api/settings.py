@@ -25,7 +25,16 @@ SECRET_KEY = '8l&7b7d=-+id))+-d(8s8^lbzmimq=k_c073)o3av)ps9fn!n$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.1.18", "localhost", "hooks-jorissen.com"]
+ALLOWED_HOSTS = ["hooks-jorissen.com"]
+
+if DEBUG:
+    ALLOWED_HOSTS += ["pop-os.localdomain", "localhost"]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    )
+}
 
 
 # Application definition
@@ -133,4 +142,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'api_assets')
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = False
 
-CORS_ORIGIN_WHITELIST = 'localhost:3000',
+CORS_ORIGIN_WHITELIST = ('localhost:3000', 'localhost:5000')

@@ -2,6 +2,7 @@ import json
 import os, configparser
 
 import requests
+from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
@@ -21,6 +22,7 @@ MJ_APIKEY_PRIVATE = config.get('mailjet', 'MJ_APIKEY_PRIVATE')
 
 class SendViaMailJet(CreateAPIView, GenericViewSet):
     serializer_class = serializers.MailJetSerializer
+    permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         url = f"https://api.mailjet.com/v3.1/send"
