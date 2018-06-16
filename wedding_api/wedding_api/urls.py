@@ -15,6 +15,6 @@ router.register('images', ImageViewSet)
 router.register('send_mail', SendViaMailJet, 'send')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     url('api/v1/', include(router.urls)),
+    path('api/v1/admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

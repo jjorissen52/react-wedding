@@ -17,7 +17,7 @@ DEBUG = bool(os.environ.get('DEBUG'))
 ALLOWED_HOSTS = config.get('django', 'allowed_hosts').split()
 
 if DEBUG:
-    ALLOWED_HOSTS += config.get('django', 'debug_allowed_hosts').split()
+    ALLOWED_HOSTS = config.get('django', 'debug_allowed_hosts').split()
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'zappa_django_utils',
-    'activity_log',
+    # 'activity_log',
 
     'content',
 ]
@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'activity_log.middleware.ActivityLogMiddleware',
 ]
 
 ROOT_URLCONF = 'wedding_api.urls'
@@ -87,6 +88,7 @@ WSGI_APPLICATION = 'wedding_api.wsgi.application'
 #     }
 # }
 
+# DATABASE_APPS_MAPPING = {'activity_log': 'logs'}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
