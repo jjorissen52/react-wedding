@@ -2,10 +2,24 @@ version: '2'
 services:
   api:
     build: ./wedding_api
-    command: bash -c "gunicorn wedding_api.wsgi -b 0.0.0.0:8000"
+    command: bash -c "sleep 3 && python manage.py migrate && gunicorn wedding_api.wsgi -b 0.0.0.0:8000"
 #    command: bash -c "python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./wedding_api:/src
+    environment:
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - DEBUG=$DEBUG
+    depends_on:
+      - db
+#    ports:
+#      - "8000:8000"
+  db:
+    restart: always
+    image: postgres:9.6
+    volumes:
+      - "$HOME/personal/docker_pg/wedding:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
   frontend:
     build: ./wedding_frontend
     volumes:
@@ -27,8 +41,14 @@ services:
       - ./wedding_api:/docker_django
     ports:
       - "80:80"
+      - "443:443"
+      - "9000:9000"
     environment:
+
       - WEB=frontend # this refers to the service defined at the top of the file
       - BACKEND_PROXY=backend_proxy
-      - REACT_WEDDING_DOMAIN=0.0.0.0:80
+      - REACT_WEDDING_DOMAINS=0.0.0.0:80, 0.0.0.0:9000, 0.0.0.0:9001
+      - REACT_WEDDING_DOMAIN=$REACT_WEDDING_DOMAIN
+      - REACT_WEDDING_DOMAIN2=$REACT_WEDDING_DOMAIN2
+      - REACT_WEDDING_DOMAIN3=$REACT_WEDDING_DOMAIN3
     command: -conf /config/Caddyfile

@@ -1,5 +1,9 @@
-{$REACT_WEDDING_DOMAIN} {
+{$REACT_WEDDING_DOMAIN}, {$REACT_WEDDING_DOMAIN2}, {$REACT_WEDDING_DOMAIN3} {
     root /docker_django
+
+    proxy /admin http://{$BACKEND_PROXY}:8080 {
+        transparent
+    }
 
     proxy /api http://{$BACKEND_PROXY}:8080 {
         transparent

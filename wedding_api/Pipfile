@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django-cors-headers = "==2.2.0"
+djangorestframework = "==3.8.2"
+gunicorn = "==19.8.1"
+pytz = "==2018.4"
+requests = "*"
+Django = "==2.0.5"
+"ba962f4" = {file = "https://github.com/jjorissen52/django-user-activity-log/tarball/master"}
+"psycopg2-binary" = "*"
+zappa-django-utils = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
