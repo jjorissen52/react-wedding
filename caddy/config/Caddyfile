@@ -9,7 +9,7 @@
         transparent
     }
 
-    proxy / http://{$WEB}:3000 {
+    proxy / http://{$WEB}:5000 {
         transparent
         except /api_assets
     }
