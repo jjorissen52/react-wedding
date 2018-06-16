@@ -2,7 +2,7 @@ version: '2'
 services:
   api:
     build: ./wedding_api
-    command: bash -c "sleep 3 && python manage.py migrate && gunicorn wedding_api.wsgi -b 0.0.0.0:8000"
+    command: bash -c "sleep 3 && python manage.py create_pg_db && python manage.py migrate && gunicorn wedding_api.wsgi -b 0.0.0.0:8000"
 #    command: bash -c "python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./wedding_api:/src
