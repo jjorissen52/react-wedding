@@ -1,6 +1,7 @@
 -i https://pypi.org/simple
 certifi==2018.4.16
 chardet==3.0.4
+django-anymail==3.0
 django-cors-headers==2.2.0
 django==2.0.5
 djangorestframework==3.8.2
@@ -10,5 +11,6 @@ idna==2.7
 psycopg2-binary==2.7.4
 pytz==2018.4
 requests==2.19.1
+six==1.11.0
 urllib3==1.23
 zappa-django-utils==0.4.0

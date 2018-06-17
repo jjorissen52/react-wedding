@@ -13,6 +13,7 @@ Django = "==2.0.5"
 "ba962f4" = {file = "https://github.com/jjorissen52/django-user-activity-log/tarball/master"}
 "psycopg2-binary" = "*"
 zappa-django-utils = "*"
+django-anymail = {extras = ["mailjet"]}
 
 [dev-packages]
 

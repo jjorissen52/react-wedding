@@ -2,6 +2,7 @@ import json
 import os, configparser
 
 import requests
+from django.core.mail import send_mail
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.generics import CreateAPIView
@@ -25,56 +26,40 @@ class SendViaMailJet(CreateAPIView, GenericViewSet):
     permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
-        url = f"https://api.mailjet.com/v3.1/send"
         serializer = SendViaMailJet.serializer_class(data=request.data)
         if not serializer.is_valid():
             return Response({
                 "errors": "Your email could not be sent. Please ensure that you've filled out all fields completely."
             })
-        payload = {
-            "Messages": [
-                {
-                    "From": {
-                        "Email": SENDER_EMAIL,
-                        "Name": "no-reply"
-                    },
-                    "To": [
-                        {
-                            "Email": RECIPIENT_EMAIL,
-                            "Name": "Me"
-                        },
-                    ],
-                    "Subject": "Wedding Contact Request",
-                    "TextPart": serializer.data["message"]
-                },
-                {
-                    "From": {
-                        "Email": SENDER_EMAIL,
-                        "Name": "no-reply"
-                    },
-                    "To": [
-                        {
-                            "Email": serializer.data['email'],
-                            "Name": serializer.data['name']
-                        },
-                    ],
-                    "Subject": "Wedding Contact Request - Message Receipt",
-                    "TextPart": f'You sent the following message to JP and Sarah: {serializer.data["message"]}'
-                }
-            ]
-        }
-        payload = json.dumps(payload)
-        response = requests.post(url, data=payload,
-                                 auth=requests.auth.HTTPBasicAuth(MJ_APIKEY_PUBLIC, MJ_APIKEY_PRIVATE))
-
-        # class Pretend:
-        #     text = 'test text'
-        #
-        # response = Pretend()
-
-        if "Error" in response.text:
+        if getattr(request, "_total_emails_sent", None) >= settings.TOTAL_EMAILS_ALLOWED:
             return Response({
-                "errors": "Your email could not be sent. Please ensure that you've filled out all fields completely."
+                "errors": "Your email could not processed at this time. We are recieving an unusally large amount of "
+                          "email requests and must investigate."
+            })
+        error_message = ""
+        try:
+            notification_text = serializer.data["message"]
+            send_mail(f"Wedding Contact Request - {serializer.data['name']}",
+                      notification_text,
+                      settings.DEFAULT_FROM_EMAIL,
+                      [serializer.data['email']], html_message=f"<html>{notification_text}</html>", fail_silently=False)
+        except Exception:
+            error_message += "Something went wrong, and JP and Sarah will not be receiving this email."
+
+        try:
+            reciept_text = f'You sent the following message to JP and Sarah: {serializer.data["message"]}'
+            send_mail("Wedding Contact Request - Message Receipt",
+                      reciept_text,
+                      settings.DEFAULT_FROM_EMAIL,
+                      [serializer.data['email']], html_message=f"<html>{reciept_text}</html>", fail_silently=False)
+        except Exception:
+            if not error_message:
+                error_message += "Your email was sent, but something went wrong and you will not be receiving a " \
+                                 "send receipt via email."
+
+        if error_message:
+            return Response({
+                "errors": error_message
             })
 
         else:

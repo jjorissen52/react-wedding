@@ -26,6 +26,10 @@ REST_FRAMEWORK = {
 }
 
 
+# import sys
+# sys.path.insert(0, '/home/jp/personal/activity_log')
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,8 +43,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'zappa_django_utils',
-    # 'activity_log',
+    'activity_log',
+    "anymail",
 
+    'mailjet',
     'content',
 ]
 
@@ -53,7 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'activity_log.middleware.ActivityLogMiddleware',
+    'activity_log.middleware.ActivityLogMiddleware',
+    'mailjet.middleware.ProcessRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'wedding_api.urls'
@@ -88,17 +95,7 @@ DATABASES = {
     }
 }
 
-# DATABASE_APPS_MAPPING = {'activity_log': 'logs'}
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'wedding_api',
-#         'USER': 'postgres',
-#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-#         'HOST': 'db',
-#         'PORT': '5432',
-#     }
-# }
+DATABASE_APPS_MAPPING = {'activity_log': 'logs'}
 
 
 # Password validation
@@ -147,3 +144,26 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = False
 
 CORS_ORIGIN_WHITELIST = ('localhost:3000', 'localhost:5000')
+
+
+ANYMAIL = {
+    "MAILJET_API_KEY": config.get('mailjet', 'MJ_APIKEY_PUBLIC'),
+    "MAILJET_SECRET_KEY": config.get('mailjet', 'MJ_APIKEY_PRIVATE'),
+}
+
+DEFAULT_FROM_EMAIL = config.get('mailjet', 'SENDER_EMAIL')
+EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
+# if more than 200 emails are sent, something very fishy is happening.
+TOTAL_EMAILS_ALLOWED = 200
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'wedding_api',
+#         'USER': 'postgres',
+#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+#         'HOST': 'db',
+#         'PORT': '5432',
+#     }
+# }
