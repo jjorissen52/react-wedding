@@ -8,7 +8,11 @@ body {
 }
 
 .button {
-    min-width: 300px;
+    min-width: 200px;
+}
+
+#banner > div > header > a {
+    max-width: 250px;
 }
 
 .screen-height {
