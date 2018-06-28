@@ -1,7 +1,7 @@
 version: '2'
 services:
   api:
-    build: ./wedding_api
+    image: jjorissen/wedding_api:latest
     command: bash -c "sleep 3 && python manage.py migrate && gunicorn wedding_api.wsgi -b 0.0.0.0:8000"
 #    command: bash -c "python manage.py runserver 0.0.0.0:8000"
     volumes:
@@ -9,8 +9,6 @@ services:
     environment:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       - DEBUG=$DEBUG
-#    ports:
-#      - "8000:8000"
 #  db:
 #    restart: always
 #    image: postgres:9.6
@@ -19,7 +17,7 @@ services:
 #    environment:
 #      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
   frontend:
-    build: ./wedding_frontend
+    image: jjorissen/wedding_frontend:latest
     volumes:
       - './wedding_frontend:/usr/src/app'
       - '/usr/src/app/node_modules'
