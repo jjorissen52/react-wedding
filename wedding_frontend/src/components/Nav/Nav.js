@@ -10,7 +10,7 @@ class Nav extends Component{
         }
     }
     componentDidMount(){
-        fetch('http://' + window.location.host + API_CONFIG.api_pages_url)
+        fetch(window.location.protocol + '//' + window.location.host + API_CONFIG.api_pages_url)
             .then(results => {return results.json()})
             .then(data => {
                 let pages = data.slice();
