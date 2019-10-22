@@ -9,7 +9,7 @@ djangorestframework = "==3.9.1"
 gunicorn = "==19.8.1"
 pytz = "==2018.4"
 requests = "*"
-Django = "==2.0.12"
+Django = "==2.2.6"
 "ba962f4" = {file = "https://github.com/jjorissen52/django-user-activity-log/tarball/master"}
 "psycopg2-binary" = "*"
 zappa-django-utils = "*"
